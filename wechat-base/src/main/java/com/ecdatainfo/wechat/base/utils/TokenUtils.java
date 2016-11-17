@@ -32,6 +32,15 @@ public class TokenUtils {
         return Base64.encodeToString(bytes);
     }
 
+    /**
+     * base64进制解密
+     * @param cipherText
+     * @return
+     */
+    public static String decryptBase64(String cipherText) {
+        return Base64.decodeToString(cipherText);
+    }
+
     public static String encrytPassword(String password){
         byte[] bytes = password.getBytes();
         ByteSource p = ByteSource.Util.bytes(bytes);

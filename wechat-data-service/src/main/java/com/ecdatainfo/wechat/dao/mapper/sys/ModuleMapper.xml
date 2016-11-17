@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecdatainfo.wechat.dao.mapper.sys.ModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.ecdatainfo.wechat.model.po.sys.Module" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="module_path" property="modulePath" jdbcType="VARCHAR" />
+    <result column="module_type" property="moduleType" jdbcType="INTEGER" />
+    <result column="module_key" property="moduleKey" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="record_status" property="recordStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, module_name, module_path, module_type, module_key, create_time, record_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ecdatainfo.wechat.model.po.sys.Module" >
+    insert into t_module (id, module_name, module_path, 
+      module_type, module_key, create_time, 
+      record_status)
+    values (#{id,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{modulePath,jdbcType=VARCHAR}, 
+      #{moduleType,jdbcType=INTEGER}, #{moduleKey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecdatainfo.wechat.model.po.sys.Module" >
+    insert into t_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="moduleName != null" >
+        module_name,
+      </if>
+      <if test="modulePath != null" >
+        module_path,
+      </if>
+      <if test="moduleType != null" >
+        module_type,
+      </if>
+      <if test="moduleKey != null" >
+        module_key,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="recordStatus != null" >
+        record_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null" >
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null" >
+        #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null" >
+        #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null" >
+        #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        #{recordStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecdatainfo.wechat.model.po.sys.Module" >
+    update t_module
+    <set >
+      <if test="moduleName != null" >
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null" >
+        module_path = #{modulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleType != null" >
+        module_type = #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleKey != null" >
+        module_key = #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        record_status = #{recordStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecdatainfo.wechat.model.po.sys.Module" >
+    update t_module
+    set module_name = #{moduleName,jdbcType=VARCHAR},
+      module_path = #{modulePath,jdbcType=VARCHAR},
+      module_type = #{moduleType,jdbcType=INTEGER},
+      module_key = #{moduleKey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findModuleByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select e.* from t_user_role b left join t_role c on b.role_id=c.id
+    left join t_role_module d on c.id=d.role_id
+    left join t_module e on d.module_id=e.id
+    where b.user_id=#{openid}
+  </select>
+
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="error" monitorInterval="30" packages="com.bwcmall.core.log4j2">
+	<Properties>
+		<property name="log_path">/Users/changtong/WorkStation/WorkStation/wechat-parent/logs/wechat-api</property>
+	</Properties>
+	<appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d [%-5p][%t] %m %throwable{full} (%C:%F:%L) %n" />
+		</Console>
+		<RollingFile name="file" fileName="${log_path}/system.log"   filePattern="${log_path}/system-%d{yyyy-MM-dd}-%i.log.gz" Append="true" >
+            <Policies>
+            	<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1024 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="min" max="100"/>
+        </RollingFile> 
+	</appenders>
+	<Loggers> 
+		<Logger name="com.ecdatainfo" level="DEBUG" additivity="true" />
+		<Logger name="java.sql.Connection" level="DEBUG" additivity="true" />
+		<Logger name="java.sql.Statement" level="DEBUG" additivity="true" />
+		<Logger name="java.sql.PreparedStatement" level="DEBUG" additivity="true" />
+		<Logger name="java.sql.Connection" level="debug" />
+		<Logger name="java.sql.PreparedStatement" level="debug" />
+		<Logger name="java.sql.Resultset" level="debug" />
+		<Logger name="java.sql.Statement" level="debug" />
+		<Logger name="com.alibaba.dubbo" level="warn" />
+		<Root level="info">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="file" />
+		</Root>
+	</Loggers>
+</configuration>

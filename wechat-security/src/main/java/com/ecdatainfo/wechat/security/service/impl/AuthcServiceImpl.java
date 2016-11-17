@@ -45,7 +45,7 @@ public class AuthcServiceImpl implements AuthcService {
 
             if (!StringUtils.isEmpty(value)) {
                 redisManager.setex(key,value,Constant.SEC_HALFHOUR);
-                user = JSON.parseObject(value, UserInfoVO.class);
+                user = JSON.parseObject(TokenUtils.decryptBase64(value), UserInfoVO.class);
                 return user;
             }
         }catch (Exception e){
@@ -68,7 +68,7 @@ public class AuthcServiceImpl implements AuthcService {
         if(authUser!=null){
             authUser.setPassword(password);
             BeanUtils.copyProperties(authUser,vo);
-            String  value = JSON.toJSONString(authUser);
+            String  value = TokenUtils.encrytBase64(JSON.toJSONString(authUser));
             String token = TokenUtils.computeSignature(user);
             String key = SerializationUtils.sessionKey(Constant.SESSIONKEYPREFIX, token);
             redisManager.set(key,value);

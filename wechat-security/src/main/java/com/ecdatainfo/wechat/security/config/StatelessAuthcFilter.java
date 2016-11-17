@@ -48,7 +48,6 @@ public class StatelessAuthcFilter extends AccessControlFilter {
             if (!HttpMethodEnum.OPTIONS.name().equalsIgnoreCase(httpRequest.getMethod())) {
                 if ((!StringUtils.isEmpty(authToken) && !"null".equals(authToken))) {
                     UserInfoVO user = authcService.getUserByToken(authToken);
-
                     if(user != null){
                         UsernamePasswordToken upt = new UsernamePasswordToken(user.getUserPhone(), user.getPassword());
                         try{

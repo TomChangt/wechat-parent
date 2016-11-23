@@ -79,7 +79,16 @@ public class AuthcServiceImpl implements AuthcService {
         }
 
         return null;
+    }
 
+    @Override
+    public void delUser(String authToken) {
+        try {
+            String key = SerializationUtils.sessionKey(Constant.USER_PERMISSION_CACHE+Constant.DOT, authToken);
+            redisManager.del(key);
 
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
     }
 }

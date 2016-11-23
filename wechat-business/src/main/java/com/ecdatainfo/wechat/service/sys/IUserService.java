@@ -1,9 +1,8 @@
 package com.ecdatainfo.wechat.service.sys;
 
-import com.ecdatainfo.wechat.base.utils.PageBean;
+
 import com.ecdatainfo.wechat.model.po.sys.User;
 import com.ecdatainfo.wechat.model.vo.sys.UserInfoVO;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 /**

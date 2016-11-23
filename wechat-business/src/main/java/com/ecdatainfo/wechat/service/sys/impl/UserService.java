@@ -27,6 +27,7 @@ public class UserService implements IUserService {
     @Override
     public PageInfo<UserInfoVO> findAll() {
         PageHelper.startPage(1,5);
+
         List<User> source =  userMapper.findAll();
         return new PageInfo<UserInfoVO>(ListCopyUtil.copyAsList(source.iterator(),UserInfoVO.class));
     }

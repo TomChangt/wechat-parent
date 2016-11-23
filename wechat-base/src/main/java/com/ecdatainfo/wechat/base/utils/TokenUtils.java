@@ -2,17 +2,13 @@ package com.ecdatainfo.wechat.base.utils;
 
 import com.ecdatainfo.wechat.base.constant.Constant;
 import com.ecdatainfo.wechat.model.po.sys.User;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.AesCipherService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
-import java.util.UUID;
 
 /**
  * Created by changtong on 2016/11/15.

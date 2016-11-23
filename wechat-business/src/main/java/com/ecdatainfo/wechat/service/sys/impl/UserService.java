@@ -1,5 +1,6 @@
 package com.ecdatainfo.wechat.service.sys.impl;
 
+import com.ecdatainfo.wechat.base.utils.ListCopyUtil;
 import com.ecdatainfo.wechat.dao.mapper.sys.UserMapper;
 import com.ecdatainfo.wechat.model.po.sys.User;
 import com.ecdatainfo.wechat.model.vo.sys.UserInfoVO;
@@ -27,14 +28,7 @@ public class UserService implements IUserService {
     public PageInfo<UserInfoVO> findAll() {
         PageHelper.startPage(1,5);
         List<User> source =  userMapper.findAll();
-        List<UserInfoVO> rs = new ArrayList<UserInfoVO>();
-        for(User userInfo : source){
-            UserInfoVO vo = new UserInfoVO();
-            BeanUtils.copyProperties(userInfo,vo);
-            rs.add(vo);
-        }
-
-        return new PageInfo<UserInfoVO>(rs);
+        return new PageInfo<UserInfoVO>(ListCopyUtil.copyAsList(source.iterator(),UserInfoVO.class));
     }
 
     public User findByProp(User user){

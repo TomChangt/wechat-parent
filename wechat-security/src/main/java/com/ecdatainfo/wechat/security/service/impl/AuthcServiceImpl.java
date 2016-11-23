@@ -40,7 +40,7 @@ public class AuthcServiceImpl implements AuthcService {
         UserInfoVO user = null;
 
         try {
-            String key = SerializationUtils.sessionKey(Constant.SESSIONKEYPREFIX, authToken);
+            String key = SerializationUtils.sessionKey(Constant.USER_PERMISSION_CACHE+Constant.DOT, authToken);
             String value = redisManager.get(key);
 
             if (!StringUtils.isEmpty(value)) {
@@ -70,7 +70,7 @@ public class AuthcServiceImpl implements AuthcService {
             BeanUtils.copyProperties(authUser,vo);
             String  value = TokenUtils.encrytBase64(JSON.toJSONString(authUser));
             String token = TokenUtils.computeSignature(user);
-            String key = SerializationUtils.sessionKey(Constant.SESSIONKEYPREFIX, token);
+            String key = SerializationUtils.sessionKey(Constant.USER_PERMISSION_CACHE+Constant.DOT, token);
             redisManager.set(key,value);
             redisManager.setex(key,value,Constant.SEC_HALFHOUR);
             vo.setToken(token);
@@ -79,7 +79,16 @@ public class AuthcServiceImpl implements AuthcService {
         }
 
         return null;
+    }
 
+    @Override
+    public void delUser(String authToken) {
+        try {
+            String key = SerializationUtils.sessionKey(Constant.USER_PERMISSION_CACHE+Constant.DOT, authToken);
+            redisManager.del(key);
 
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
     }
 }

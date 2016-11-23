@@ -19,4 +19,6 @@ public interface AuthcService {
 
 
     UserInfoVO saveUser(String username,String password);
+
+    void delUser(String authToken);
 }

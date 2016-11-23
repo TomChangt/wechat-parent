@@ -66,4 +66,25 @@ public class AuthController {
 
     }
 
+    @RequestMapping(value = "/loginOut",method = RequestMethod.POST)
+    @ApiOperation(value = "用户退出", response = User.class, httpMethod = "POST", notes = "用户登录")
+    @ApiResponses(value = {@ApiResponse(code = 200,response=User.class, message = "OK")})
+    public @ResponseBody BaseResponse loginOut(
+            @RequestHeader("Authorization") String authorization)
+            throws IOException {
+
+        UsernamePasswordToken upt = new UsernamePasswordToken();
+        Subject subject = SecurityUtils.getSubject();
+
+        try {
+            subject.login(upt);
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            return ResponseBuilder.buildFaildResponse(new ApiException(ErrorCodeEnum.AuthFaild));
+        }
+        return ResponseBuilder.buildSuccessResponse("成功");
+
+    }
+
+
 }

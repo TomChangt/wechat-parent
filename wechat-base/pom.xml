@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wechat-base</artifactId>
     <packaging>jar</packaging>
-    <name>base</name>
+    <name>wechat-base</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
